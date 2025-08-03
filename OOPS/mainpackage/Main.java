@@ -1,5 +1,5 @@
 package mainpackage;
-import mypackage.CarClass;
+import mypackage.CarClass; // can access a package or its class using its absolute path only not relative path.
 
 public class Main {
     public static void main(String[] args) {
