@@ -24,8 +24,8 @@ public class ArrayBlockingQueueEx { // cant add null
         Thread consumer = new Thread(() -> {
             try {
                 Thread.sleep(500); // wait a bit before consuming
-                System.out.println("Consumed: " + queue.take());
-                System.out.println("Consumed: " + queue.take());
+                System.out.println("Consumed: " + queue.take()); // blocks if queue is empty
+                System.out.println("Consumed: " + queue.take()); 
                 System.out.println("Consumed: " + queue.take());
                 System.out.println("Consumed: " + queue.take());
                 System.out.println("Consumed: " + queue.take());
@@ -50,13 +50,13 @@ public class ArrayBlockingQueueEx { // cant add null
         System.out.println("\n=== Using other methods ===");
         BlockingQueue<String> smallQueue = new ArrayBlockingQueue<>(2);
 
-        System.out.println("Offering A: " + smallQueue.offer("A")); 
+        System.out.println("Offering A: " + smallQueue.offer("A")); // returns true if added, false if full
         System.out.println("Offering B: " + smallQueue.offer("B")); 
         System.out.println("Offering C: " + smallQueue.offer("C")); 
 
         System.out.println("Queue Size: " + smallQueue.size());     
-        System.out.println("Peek: " + smallQueue.peek());         
-        System.out.println("Poll: " + smallQueue.poll());         
+        System.out.println("Peek: " + smallQueue.peek());  // returns null if empty        
+        System.out.println("Poll: " + smallQueue.poll());  // returns null if empty       
         System.out.println("Poll: " + smallQueue.poll());  
         System.out.println("Poll: " + smallQueue.poll());  
         smallQueue.put("G");
