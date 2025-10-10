@@ -3,7 +3,7 @@ import java.util.Arrays;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
-public class LambdaExample {
+public class LambdaEx {
 
     public static void main(String[] args) {
 
@@ -22,10 +22,30 @@ public class LambdaExample {
         StringFunction question = str -> str + "?";
         System.out.println("With Lambda (question): " + question.apply("Hello"));
 
-        StringFunction addDollar = str -> str + "$";
-        System.out.println("With Lambda (dollar): " + addDollar.apply("Hello"));
+        StringFunction dollar = str -> str + "$";
+        System.out.println("With Lambda (dollar): " + dollar.apply("Hello") + "\n");
 
-        System.out.println("Using Higher Order function: " + addingStrings("Hello", question));
+        // variable capture 
+        for (String s : Arrays.asList("Hello", "World")) {
+            StringFunction add = str -> str + s;
+            System.out.println("With Lambda: " + add.apply("fun "));
+        }
+
+        for (String s : Arrays.asList("Hello", "World")) {
+            StringFunction add = new StringFunction() {
+                public String apply(String str) {
+                    return str + s;
+                }
+            };
+            System.out.println("With Lambda: " + add.apply("fun "));
+        }
+
+        for (String s : Arrays.asList("Hello", "World")) {
+            StringFunction add = new VarCapture1(s);
+            System.out.println("With Lambda: " + add.apply("fun "));
+        }
+
+        System.out.println("\nUsing Higher Order function: " + addingStrings("Hello", question));
 
         // Lambda for functional interface with no parameters
         Animal dog = () -> System.out.println("Dog says boww bowww...");
@@ -134,11 +154,11 @@ interface Animal {
 
 // Demonstrates variable capture in lambdas
 class VarCapture {
-    String instanceVar = "Instance ";
-    static String staticVar = "Static ";
+    String instanceVar = "Instance "; // can be modified
+    static String staticVar = "Static "; // can be modified
 
     void show() {
-        String localVar = "Local ";
+        String localVar = "Local "; // can't be modified
         StringFunction func = str -> str + instanceVar + staticVar + localVar;
         System.out.println(func.apply("Hello "));
     }
@@ -174,4 +194,18 @@ interface VarCaptureCreator {
 
 interface StringCreator {
     String create(char[] arr);
+}
+
+class VarCapture1 implements StringFunction{
+    String var;
+
+    VarCapture1(String var) {
+        this.var = var;
+    }
+
+    @Override
+    public String apply(String str) {
+        return str + var;
+    }
+
 }
