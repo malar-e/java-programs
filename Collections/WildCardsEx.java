@@ -2,8 +2,9 @@ import java.util.*;
 
 public class WildCardsEx {
     public static void main(String[] args) {
-        List<? extends Animal> list = new ArrayList<>(); // extends wildcard boundary, can add subtype of animal
-        // Animal a = list.get(0); // can read as animals, but not as subtypes like Dog, Cat
+        List<? extends Animal> list = Arrays.asList(new Dog(), new Cat()); // extends wildcard boundary, can add subtype of animal
+        Animal a = list.get(0); // can read as animals, but not as subtypes like Dog, Cat
+        a.sound();
         // list.add(new Cat()); not allowed to write
 
         Dog dog1 = new Dog();
@@ -34,7 +35,7 @@ public class WildCardsEx {
 
     }
 
-    public static void processAnimals (List<? extends Animal> list) {
+    public static void processAnimals (List<? extends Animal> list) { // compiler only knows this is subtype of animal, even though you give list of Dog and Cat
         Animal animal = list.get(0);
         animal.sound();
 
