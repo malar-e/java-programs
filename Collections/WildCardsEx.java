@@ -6,8 +6,16 @@ public class WildCardsEx {
         // Animal a = list.get(0); // can read
         // list.add(new Cat()); not allowed to write
 
+        Dog dog1 = new Dog();
+        Dog dog2 = new Dog();
+        Cat cat1 = new Cat();
+        Cat cat2 = new Cat();
         List<Dog> dog = new ArrayList<>();
+        dog.add(dog1);
+        dog.add(dog2);
         List<Cat> cat = new ArrayList<>();
+        cat.add(cat1);
+        cat.add(cat2);
         processAnimals(dog);
         processAnimals(cat);
 
