@@ -2,8 +2,8 @@ import java.util.*;
 
 public class WildCardsEx {
     public static void main(String[] args) {
-        List<? extends Animal> list = new ArrayList<>(); // extends wildcard boundary
-        // Animal a = list.get(0); // can read
+        List<? extends Animal> list = new ArrayList<>(); // extends wildcard boundary, can add subtype of animal
+        // Animal a = list.get(0); // can read as animals, but not as subtypes like Dog, Cat
         // list.add(new Cat()); not allowed to write
 
         Dog dog1 = new Dog();
@@ -19,7 +19,7 @@ public class WildCardsEx {
         processAnimals(dog);
         processAnimals(cat);
 
-        List<? super Animal> superList = new ArrayList<>(); // super wildCard boundary
+        List<? super Animal> superList = new ArrayList<>(); // super wildCard boundary, can add animal and its supertypes
         superList.add(new Dog());
         superList.add(new Cat());
 
@@ -37,7 +37,7 @@ public class WildCardsEx {
     public static void processAnimals (List<? extends Animal> list) {
         Animal animal = list.get(0);
         animal.sound();
-        
+
         for(Animal a : list) {
             a.sound();
         }
@@ -46,6 +46,13 @@ public class WildCardsEx {
     public static void insertAnimals (List<? super Animal> list) {
         list.add(new Dog());
         list.add(new Cat());
+
+        Object obj1 = list.get(0);
+        if (obj1 instanceof Dog) {
+            ((Dog) obj1).sound();
+        } else if (obj1 instanceof Cat) {
+            ((Cat) obj1).sound();
+        }
 
         for (Object obj : list) {
             if(obj instanceof Dog) {
