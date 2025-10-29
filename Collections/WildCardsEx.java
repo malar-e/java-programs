@@ -35,6 +35,9 @@ public class WildCardsEx {
     }
 
     public static void processAnimals (List<? extends Animal> list) {
+        Animal animal = list.get(0);
+        animal.sound();
+        
         for(Animal a : list) {
             a.sound();
         }
